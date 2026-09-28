@@ -1,6 +1,7 @@
 import React from 'react';
 import { CartItem } from '../types';
-import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Flame, PhoneCall } from 'lucide-react';
+import { BUSINESS_CONFIG } from '../data/mockData';
+import { X, Trash2, ShoppingBag, PhoneCall, Sparkles, MapPin } from 'lucide-react';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -22,19 +23,22 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   if (!isOpen) return null;
 
   const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalBolsas = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const generateWhatsAppOrder = () => {
     if (items.length === 0) return;
 
-    let text = `*PEDIDO TÁCTICO // FUEGO DULCE HIGH-OCTANE*%0A%0A`;
+    let text = `*PEDIDO GOMILOKAS (AROS DE MANZANA)*%0A%0A`;
     items.forEach((item, idx) => {
-      text += `${idx + 1}. *${encodeURIComponent(item.product.name)}* (${item.size})%0A`;
-      text += `   Cantidad: ${item.quantity} | Subtotal: $${item.price * item.quantity} MXN%0A`;
+      text += `${idx + 1}. *${encodeURIComponent(item.product.name)}*%0A`;
+      text += `   Cantidad: ${item.quantity} | Precio: $${item.price * item.quantity} MXN%0A`;
     });
-    text += `%0A*TOTAL ESTIMADO:* $${total} MXN%0A%0A`;
-    text += `_Solicito confirmación de inventario y datos de envío prioritario en 24h._`;
+    text += `%0A*TOTAL ESTIMADO:* $${total} MXN%0A`;
+    text += `*ENTREGA EN:* La Uni / Villa de Tezontepec%0A%0A`;
+    text += `Hola Gilberto! Quiero confirmar este pedido de Gomilokas para entrega personal.`;
 
-    window.open(`https://wa.me/5215500000000?text=${text}`, '_blank');
+    const url = `https://wa.me/${BUSINESS_CONFIG.whatsappRaw}?text=${text}`;
+    window.open(url, '_blank');
   };
 
   return (
@@ -49,44 +53,38 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5 text-[#fde400]" />
                 <h3 className="text-lg font-black uppercase tracking-tight">
-                  Bolsa Táctica ({items.reduce((acc, i) => acc + i.quantity, 0)})
+                  Tu Pedido ({totalBolsas} {totalBolsas === 1 ? 'bolsa' : 'bolsas'})
                 </h3>
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg bg-[#201f21] border border-[#353437] text-[#cdc7aa] hover:text-white"
+                className="p-1.5 rounded-lg bg-[#201f21] border border-[#353437] text-[#cdc7aa] hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Free shipping progress badge */}
-            <div className="mt-3 p-2.5 bg-[#201f21] border border-[#353437] rounded-xl text-xs flex items-center justify-between">
-              <span className="text-[#cdc7aa]">
-                {total >= 600 ? (
-                  <strong className="text-[#fde400]">¡Envío prioritario express incluido!</strong>
-                ) : (
-                  <span>Agrega ${(600 - total).toFixed(0)} MXN para envío gratis</span>
-                )}
-              </span>
-              <ShieldCheck className="w-4 h-4 text-[#fde400]" />
+            {/* Delivery note */}
+            <div className="mt-3 p-3 bg-[#201f21] border border-[#353437] rounded-xl text-xs flex items-center gap-2 text-[#cdc7aa]">
+              <MapPin className="w-4 h-4 text-[#25D366] shrink-0" />
+              <span>Entregas en mano en la Uni o en Villa de Tezontepec, Hgo.</span>
             </div>
           </div>
 
           {/* Cart Items List */}
           <div className="flex-1 overflow-y-auto py-4 space-y-3">
             {items.length === 0 ? (
-              <div className="h-64 flex flex-col items-center justify-center text-center text-[#cdc7aa]">
-                <Flame className="w-12 h-12 text-[#353437] mb-2 animate-bounce" />
-                <p className="text-sm font-bold uppercase text-white">Tu bolsa está vacía</p>
-                <p className="text-xs max-w-xs mt-1">
-                  Explora el arsenal de sabores y añade tu dosis de alto octanaje pre-entreno.
+              <div className="h-64 flex flex-col items-center justify-center text-center text-[#cdc7aa] space-y-2">
+                <ShoppingBag className="w-12 h-12 text-[#353437] animate-pulse" />
+                <p className="text-sm font-bold uppercase text-white">Tu pedido está vacío</p>
+                <p className="text-xs max-w-xs">
+                  Agrega una bolsa individual de aros de manzana a $15 o un paquete con descuento.
                 </p>
               </div>
             ) : (
               items.map((item, index) => (
                 <div
-                  key={`${item.product.id}-${item.size}-${index}`}
+                  key={`${item.product.id}-${index}`}
                   className="p-3 bg-[#201f21] border border-[#353437] rounded-xl flex items-center gap-3 relative group"
                 >
                   <img
@@ -96,86 +94,79 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   />
                   <div className="flex-1 min-w-0">
                     <span className="text-[10px] font-bold text-[#fde400] uppercase block">
-                      {item.size}
+                      Bolsa 100g
                     </span>
-                    <h4 className="text-xs font-black text-white uppercase truncate">
+                    <h4 className="text-xs font-bold text-white truncate">
                       {item.product.name}
                     </h4>
-                    <span className="text-xs text-[#ffb4a8] font-mono font-bold block mt-0.5">
-                      ${item.price * item.quantity} MXN{' '}
-                      <span className="text-[10px] text-[#cdc7aa] font-normal">
-                        (${item.price} c/u)
-                      </span>
+                    <span className="text-xs font-mono font-bold text-[#25D366]">
+                      ${item.price * item.quantity} MXN
                     </span>
-
-                    {/* Quantity Selector */}
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className="flex items-center bg-[#131315] border border-[#353437] rounded-md">
-                        <button
-                          onClick={() => onUpdateQuantity(index, item.quantity - 1)}
-                          className="px-2 py-0.5 text-xs text-[#cdc7aa] hover:text-white"
-                        >
-                          -
-                        </button>
-                        <span className="px-2 text-xs font-mono font-bold">{item.quantity}</span>
-                        <button
-                          onClick={() => onUpdateQuantity(index, item.quantity + 1)}
-                          className="px-2 py-0.5 text-xs text-[#cdc7aa] hover:text-white"
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      <button
-                        onClick={() => onRemoveItem(index)}
-                        className="text-[#ffb4ab] hover:text-red-400 p-1"
-                        title="Eliminar producto"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
                   </div>
+
+                  {/* Quantity controls */}
+                  <div className="flex items-center gap-1.5 bg-[#131315] border border-[#353437] rounded-lg p-1">
+                    <button
+                      onClick={() => onUpdateQuantity(index, item.quantity - 1)}
+                      className="w-6 h-6 rounded bg-[#201f21] hover:bg-[#353437] text-white flex items-center justify-center text-xs font-bold cursor-pointer"
+                    >
+                      -
+                    </button>
+                    <span className="text-xs font-mono font-bold w-6 text-center text-white">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => onUpdateQuantity(index, item.quantity + 1)}
+                      className="w-6 h-6 rounded bg-[#201f21] hover:bg-[#353437] text-white flex items-center justify-center text-xs font-bold cursor-pointer"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  {/* Remove Button */}
+                  <button
+                    onClick={() => onRemoveItem(index)}
+                    className="p-1.5 text-[#cdc7aa] hover:text-[#d20402] transition-colors cursor-pointer"
+                    title="Eliminar"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               ))
             )}
           </div>
 
-          {/* Footer & Checkout */}
-          <div className="pt-4 border-t border-[#2a2a2c] space-y-3">
-            <div className="space-y-1 text-xs">
-              <div className="flex justify-between text-[#cdc7aa]">
-                <span>Subtotal ({items.reduce((acc, i) => acc + i.quantity, 0)} piezas):</span>
-                <span className="font-mono text-white">${total} MXN</span>
+          {/* Bottom Total & Checkout via WhatsApp */}
+          <div className="border-t border-[#2a2a2c] pt-4 space-y-3">
+            <div className="space-y-1.5 text-xs text-[#cdc7aa]">
+              <div className="flex items-center justify-between text-base font-black text-white pt-1">
+                <span>Total a pagar:</span>
+                <span className="text-xl font-mono text-[#fde400]">${total} MXN</span>
               </div>
-              <div className="flex justify-between text-[#cdc7aa]">
-                <span>Garantía térmica 38°C:</span>
-                <span className="text-[#fde400] font-bold">100% Cubierta</span>
-              </div>
-              <div className="flex justify-between text-base font-black text-white pt-2 border-t border-[#2a2a2c]">
-                <span>Total Estimado:</span>
-                <span className="text-[#fde400]">${total} MXN</span>
-              </div>
+              <p className="text-[11px] text-[#cdc7aa]">
+                Pagas en efectivo al momento de la entrega o por transferencia SPEI.
+              </p>
             </div>
 
             <button
               onClick={generateWhatsAppOrder}
               disabled={items.length === 0}
-              className={`w-full py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-[2px_2px_0px_#000000] ${
-                items.length === 0
-                  ? 'bg-[#353437] text-[#cdc7aa] cursor-not-allowed opacity-50'
-                  : 'bg-[#fde400] hover:bg-white text-black active:translate-x-0.5 active:translate-y-0.5 cursor-pointer'
+              className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl ${
+                items.length > 0
+                  ? 'bg-[#25D366] text-black hover:bg-white hover:scale-[1.01] cursor-pointer'
+                  : 'bg-[#2a2a2c] text-[#cdc7aa] cursor-not-allowed'
               }`}
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Enviar Pedido a WhatsApp</span>
+              <span>Confirmar Pedido por WhatsApp</span>
             </button>
 
             {items.length > 0 && (
               <button
                 onClick={onClearCart}
-                className="w-full text-center text-[11px] text-[#cdc7aa] hover:text-white uppercase font-bold"
+                className="w-full py-1 text-center text-[11px] text-[#cdc7aa] hover:text-white transition-colors cursor-pointer"
               >
-                Vaciar Bolsa Táctica
+                Vaciar pedido
               </button>
             )}
           </div>

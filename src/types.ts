@@ -17,8 +17,8 @@ export interface Product {
   image: string;
   description: string;
   price: number;
-  availableSizes: Array<'150g' | '250g' | '500g' | '2.5kg'>;
-  selectedSize: '150g' | '250g' | '500g' | '2.5kg';
+  availableSizes: Array<'100g' | '150g' | '250g' | '500g' | '2.5kg'>;
+  selectedSize: '100g' | '150g' | '250g' | '500g' | '2.5kg';
   nutrition: {
     sodium: string;
     carbs: string;
@@ -31,15 +31,18 @@ export interface Product {
   isBestSeller?: boolean;
 }
 
-export interface Athlete {
+export interface CrewMember {
   id: string;
   name: string;
-  title: string;
+  alias: string;
+  role: string;
   category: string;
   location: string;
+  badge: string;
   bio: string;
-  attackGummy: string;
-  image: string;
+  stats: { label: string; value: string }[];
+  favoritePack: string;
+  isFounder?: boolean;
 }
 
 export interface WholesaleTier {
@@ -57,7 +60,18 @@ export interface WholesaleTier {
 
 export interface CartItem {
   product: Product;
-  size: '150g' | '250g' | '500g' | '2.5kg';
+  size: '100g' | '150g' | '250g' | '500g' | '2.5kg';
   quantity: number;
   price: number;
+}
+
+export interface CampusReview {
+  id: string;
+  name: string;
+  faculty: string;
+  avatarText: string;
+  rating: number;
+  comment: string;
+  date: string;
+  verifiedStudent: boolean;
 }

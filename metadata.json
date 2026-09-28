@@ -1,6 +1,6 @@
 {
-  "name": "FUEGO DULCE // High-Octane Heat",
-  "description": "Gomitas artesanales de alto octanaje con chile morita, habanero y chamoy puro. Nutrición extrema, ventas de mayoreo B2B y Team Fuego.",
+  "name": "GOMILOKAS // Aros de Manzana Enchilados",
+  "description": "Aros de manzana verde enchilados con chamoy casero acidito y chilito en polvo. Bolsa de 10.5x15 cm (100g) a $15 MXN. Hechas en Villa de Tezontepec, Hgo y entregadas en la Uni.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
