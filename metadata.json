@@ -1,0 +1,6 @@
+{
+  "name": "FUEGO DULCE // High-Octane Heat",
+  "description": "Gomitas artesanales de alto octanaje con chile morita, habanero y chamoy puro. Nutrición extrema, ventas de mayoreo B2B y Team Fuego.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

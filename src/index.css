@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-headline: 'Bricolage Grotesque', sans-serif;
+    --font-body: 'Chivo', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #131315;
+    color: #e5e1e4;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+  }
+}
+
+/* Custom marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee 24s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Neon glow classes */
+.glow-yellow {
+  box-shadow: 0 0 25px rgba(253, 228, 0, 0.35);
+}
+
+.glow-crimson {
+  box-shadow: 0 0 25px rgba(210, 4, 2, 0.45);
+}
+
+.glow-subtle {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
