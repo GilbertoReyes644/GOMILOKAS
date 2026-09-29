@@ -10,6 +10,7 @@ import { SpecsView } from './views/SpecsView';
 import { ProductQuickviewModal } from './components/ProductQuickviewModal';
 import { CartDrawer } from './components/CartDrawer';
 import { BatchStatusModal } from './components/BatchStatusModal';
+import { ShareModal } from './components/ShareModal';
 import { Check, MessageCircle } from 'lucide-react';
 import { PRODUCTS_DATA, BUSINESS_CONFIG } from './data/mockData';
 
@@ -27,6 +28,7 @@ export default function App() {
   // Modal and drawer controls
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isBatchStatusOpen, setIsBatchStatusOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
   const [quickviewProduct, setQuickviewProduct] = useState<Product | null>(null);
 
   // Toast feedback state
@@ -138,6 +140,7 @@ export default function App() {
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenBatchStatus={() => setIsBatchStatusOpen(true)}
+        onOpenShare={() => setIsShareOpen(true)}
         onOpenProductModal={(p) => setQuickviewProduct(p)}
       />
 
@@ -197,6 +200,11 @@ export default function App() {
       <BatchStatusModal
         isOpen={isBatchStatusOpen}
         onClose={() => setIsBatchStatusOpen(false)}
+      />
+
+      <ShareModal
+        isOpen={isShareOpen}
+        onClose={() => setIsShareOpen(false)}
       />
 
       <ProductQuickviewModal

@@ -12,7 +12,8 @@ import {
   PhoneCall,
   Flame,
   Radio,
-  Users
+  Users,
+  QrCode
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -21,6 +22,7 @@ interface NavbarProps {
   cartCount: number;
   onOpenCart: () => void;
   onOpenBatchStatus?: () => void;
+  onOpenShare?: () => void;
   onOpenProductModal: (product: Product) => void;
 }
 
@@ -30,6 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   onOpenCart,
   onOpenBatchStatus,
+  onOpenShare,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -213,6 +216,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>RADAR</span>
             </button>
 
+            {/* QR Code / Share Button */}
+            <button
+              onClick={onOpenShare}
+              className="p-2.5 bg-[#201f21] hover:bg-[#2a2a2c] border border-[#353437] text-[#25D366] hover:text-white rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
+              title="Compartir página o ver Código QR"
+            >
+              <QrCode className="w-4 h-4" />
+              <span className="hidden xl:inline text-xs font-mono font-bold text-white">QR</span>
+            </button>
+
             {/* Cart Drawer Trigger */}
             <button
               onClick={onOpenCart}
@@ -342,9 +355,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
+                  onOpenShare?.();
+                }}
+                className="w-full py-3 bg-[#201f21] border border-[#25D366]/40 text-[#25D366] font-black text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <QrCode className="w-4 h-4" />
+                <span>Compartir / Ver Código QR</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
                   onOpenBatchStatus?.();
                 }}
-                className="w-full py-3 bg-[#201f21] border border-[#fde400]/40 text-[#fde400] font-black text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-2"
+                className="w-full py-3 bg-[#201f21] border border-[#fde400]/40 text-[#fde400] font-black text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Radio className="w-4 h-4 text-[#25D366] animate-pulse" />
                 <span>Ver Radar de Entregas Hoy</span>

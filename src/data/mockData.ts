@@ -1,7 +1,8 @@
 import { Product, WholesaleTier, CrewMember, CampusReview } from '../types';
 import arosImg from '../assets/images/aros_manzana_gomilokas_1790574209464.jpg';
+import gomilokasLogo from '../assets/images/gomilokas_official_logo_1790575992046.jpg';
 
-export const LOGO_URL = 'https://lh3.googleusercontent.com/aida/AEtjO1VqXvXJj0A4Xd2hed7_dvSD_zpUAcAYmmLmnzBCKsb1cM3iNHkVhZ_r2oWsxZMy_8LZkbivNHsDqBtEe6pCmlMCpH2S4MS3YRBiiTLEQ1cviq8p--OS3si18Ss9RxrpqUNOGKU46zoIdt1-BWApg6RB2QkdVjqy6r1ihUgAGUU9ImGyVi70p8fqoJrwpGLBU-Q-3oGLyxhkqUl0amnLMfUqJuFITBeTe60HlHU3R8JB1uGPm4NSofzT75r7';
+export const LOGO_URL = gomilokasLogo;
 
 export const AROS_IMAGE = arosImg;
 
@@ -245,9 +246,9 @@ export const CREW_MEMBERS: CrewMember[] = [
 export const CAMPUS_REVIEWS: CampusReview[] = [
   {
     id: 'rev-1',
-    name: 'Carlos M.',
-    faculty: 'Facultad de Ingeniería',
-    avatarText: 'CM',
+    name: 'Ethan levi',
+    faculty: 'Ingeniria en Tecnologias de la Informacíon',
+    avatarText: 'EL',
     rating: 5,
     comment: 'Al chile están con madre. Lo mejor es que el chilito no viene aguado como las gomitas de la tienda, no se te baten los dedos ni manchas los apuntes de la clase.',
     date: 'Esta semana',
@@ -255,9 +256,9 @@ export const CAMPUS_REVIEWS: CampusReview[] = [
   },
   {
     id: 'rev-2',
-    name: 'Mariana R.',
-    faculty: 'Ciencias Económicas / Admin',
-    avatarText: 'MR',
+    name: 'Valeria .',
+    faculty: 'Ingenieria en Animacíon',
+    avatarText: 'V',
     rating: 5,
     comment: 'Siempre le compro a Gilberto antes de entrar a clase de 2 horas. La combinación de la manzana verde ácida con el chamoy casero es adictiva.',
     date: 'Hace 3 días',
@@ -265,9 +266,9 @@ export const CAMPUS_REVIEWS: CampusReview[] = [
   },
   {
     id: 'rev-3',
-    name: 'Kevin L.',
-    faculty: 'Estudiante en Campus & Tezontepec',
-    avatarText: 'KL',
+    name: 'Kevin H.',
+    faculty: 'Estudiante en Campus & vecino',
+    avatarText: 'KH',
     rating: 5,
     comment: 'Le pedí el paquete de 10 bolsas para una reunión con mis primos y volaron en 5 minutos. $15 pesos por 100g es una ganga comparado con lo que cobran en los OXXO.',
     date: 'Semana pasada',
@@ -275,11 +276,11 @@ export const CAMPUS_REVIEWS: CampusReview[] = [
   },
   {
     id: 'rev-4',
-    name: 'Sofía & Vale',
-    faculty: 'Arquitectura / Diseño',
-    avatarText: 'SV',
+    name: 'Sofía Hernandez',
+    faculty: 'Aeronautica',
+    avatarText: 'SH',
     rating: 5,
-    comment: 'La bolsa termosellada aguanta cañón en la mochila. La trajimos todo el día entre maquetas y no se aplastó ni escurrió nada.',
+    comment: 'La bolsa termosellada aguanta cañón en la mochila. La trajimos todo el día entre clases y no se aplastó ni escurrió nada.',
     date: 'Ayer',
     verifiedStudent: true,
   },
